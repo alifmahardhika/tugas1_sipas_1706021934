@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelaf.org">
+<head>
+    <title>Home</title>
+    <!-- jquery, ajax, and bootstrap.js -->
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (pageTitle='Home')"></nav>
+
+
+    <div class="container-fluid">
+<h2>Selamat datang di GOPUD!</h2>
+        <button class ="btn btn-primary">
+            <a th:href="@{restoran/view-all}" style="color: white">View All Restoran</a>
+        </button>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Tambah Restoran</div>
+                    <div class="card-body">
+                        <p>Fitur untuk menambah restoran</p>
+                        <button class="btn btn-primary">
+                            <a th:href="@{/restoran/add}" style="color: white">Tambah Restoran</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header"> Cari Restoran Berdasarkan ID</div>
+                    <div class="card-body">
+                        <form th:action="@{/restoran/view}" method="GET">
+                            <label for="idRestoran">Id Restoran</label>
+                            <input type="text" name="idRestoran" class="form-control"/>
+                            <br>
+                            <button class="btn btn-primary" type="submit"> Cari </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

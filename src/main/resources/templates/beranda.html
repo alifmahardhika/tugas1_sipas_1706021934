@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+
+<!--<head>-->
+    <!--<title>View All Restoran</title>-->
+    <!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
+    <!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+<!--</head>-->
+
+<body>
+<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='View All')"></nav>-->
+<h2 style="text-align:center">Sistem Informasi Pasien</h2>
+<button class ="btn btn-primary">
+    <a th:href="@{pasien/tambah}" style="color: white">Tambah Pasien Baru</a>
+</button>
+<h2>Daftar Pasien</h2>
+<div th:each="pasien : ${pasienList}">
+    <h3 th:text="'Nama Restoran: ' + ${pasien.nama}"></h3>
+    <h3 th:text="'NIK: ' + ${pasien.nik}"></h3>
+    <h3 th:text="'Jenis Kelamin: ' + ${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></h3>
+    <h3 th:text="'Tempat Lahir: ' + ${pasien.tempatLahir}"></h3>
+    <h3 th:text="'Tanggal Lahir: ' + ${pasien.tanggalLahir}"></h3>
+</div>
+</body>
+</html>

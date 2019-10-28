@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+<head>
+    <title>View Restoran</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (pageTitle='Delete')"></nav>
+
+<div th:if="${resto == null}">
+    <h2>Restoran telah dihapus.</h2>
+</div>
+
+<div th:unless="${resto == null}">
+    <h2>Informasi restoran tidak ada.</h2>
+
+</div>
+</body>
+</html>

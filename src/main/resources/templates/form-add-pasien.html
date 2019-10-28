@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelaf.org">
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>Tambah Pasien</title>-->
+    <!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
+    <!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+<!--</head>-->
+<body>
+<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='Add Pasien')"></nav>-->
+
+<h3>Tambah Pasien</h3>
+<form th:action="@{/pasien/tambah}" th:object="${pasien}" method="POST">
+    Nama: <br>
+    <input type="text" name="nama" />
+    <br>
+    NIK: <br>
+    <input type="text" name="nik" />
+    <br>
+    Jenis Kelamin: <br>
+    <select th:field="*{jenisKelamin}">
+        <option th:value="1" th:text="Laki-laki"></option>
+        <option th:value="2" th:text="Perempuan"></option>
+    </select>
+    <!--<form:select path="country" items="${countryList}" />-->
+    <br>
+    Tanggal Lahir: <br>
+        <input type="date" th:value="${pasien.tanggalLahir}" th:field="${pasien.tanggalLahir}" id="tanggalLahir" pattern="dd-MM-yyyy"/>
+    <br>
+    Tempat Lahir: <br>
+    <input type="text" name="tempatLahir" />
+    <br>
+    <!--Asuransi: <br>-->
+    <!--<select th:field="*{jenisKelamin}">-->
+        <!--<option th:value="1" th:text="Laki-laki"></option>-->
+        <!--<option th:value="2" th:text="Perempuan"></option>-->
+    <!--</select>-->
+    <!--BLM EMERGENCY CONTACT-->
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+</body>
+</html>

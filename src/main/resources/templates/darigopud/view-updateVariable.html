@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+<head>
+    <title>View Restoran Update</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (pageTitle='Update Variable')"></nav>
+
+<div th:if="${resto == null}">
+    <h2>Restoran tidak di temukan.</h2>
+</div>
+<div th:unless="${resto == null}">
+
+
+<h2>Informasi Kesehatan</h2>
+<h3 th:text="'ID Restoran: ' + ${resto.idRestoran}"></h3>
+<h3 th:text="'Nama Restoran: ' + ${resto.nama}"></h3>
+<h3 th:text="'Alamat Restoran: ' + ${resto.alamat}"></h3>
+<h3 th:text="'Nomor Telp. Restoran: ' + ${resto.nomorTelepon}"></h3>
+</div>
+</body>
+</html>

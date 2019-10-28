@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+<head>
+    <title> Add Restoran</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (pageTitle='Add Restoran')"></nav>
+
+<h2 th:text="'Restoran dengan nama ' + ${namaRestoran} + ' berhasil ditambahkan.'"></h2>
+
+</body>
+</html>
