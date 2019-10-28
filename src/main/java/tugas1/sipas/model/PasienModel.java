@@ -60,6 +60,18 @@ public class PasienModel implements Serializable {
             inverseJoinColumns = @JoinColumn(name="idAsuransi"))
     List<AsuransiModel> listAsuransi;
 
+    public EmergencyContactModel getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(EmergencyContactModel emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "EmergencyContactId", referencedColumnName = "idContact")
+    private EmergencyContactModel emergencyContact;
+
 //    private AsuransiModel asuransi;
     ////////////////////////////////kyknya harusnya relationship
 //    EmergencyContact emergencyContact = new EmergencyContact();

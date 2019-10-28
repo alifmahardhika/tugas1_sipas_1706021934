@@ -30,7 +30,11 @@
     Tempat Lahir: <br>
     <input type="text" name="tempatLahir" />
     <br>
-    <!--Asuransi: <br>-->
+    Asuransi: <br>
+    <select th:field="${listAsuransi}"  id="dropdownList">
+        <option value="0">Pilih Asuransi</option>
+        <option th:each="asuransi : ${listAsuransi}" th:value="${asuransi.nama}" th:text="${asuransi.nama}"></option>
+    </select>
     <!--<select th:field="*{jenisKelamin}">-->
         <!--<option th:value="1" th:text="Laki-laki"></option>-->
         <!--<option th:value="2" th:text="Perempuan"></option>-->
