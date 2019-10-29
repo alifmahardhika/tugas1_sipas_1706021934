@@ -61,6 +61,18 @@ public class PasienController {
         pasienService.addEmergencyContact(contact);
         pasien.setIdEmergencyContact(Long.toString(contact.getIdContact()));
 
+        //set Asuransi
+        String[] listAsuransiPasien = pasien.getIdAsuransi().split(",");
+        List<AsuransiModel> daftar = new ArrayList<>();
+        for (int i=0; i<listAsuransiPasien.length; i++){
+            for (AsuransiModel ass: asuransiService.getListAsuransi()){
+                if (listAsuransiPasien[i] == ass.getNama()){
+                    daftar.add(ass);
+                }
+            }
+        }
+        pasien.setListAsuransi(daftar);
+
 
         //save ke database
         pasienService.addPasien(pasien);
@@ -99,6 +111,10 @@ public class PasienController {
             digit += temp[rand];
         }
         return digit;
+    }
+
+    static  public  void addDaftarAsuransiPasien(String idAsuransi){
+
     }
 
 

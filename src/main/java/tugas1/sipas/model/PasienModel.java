@@ -62,6 +62,10 @@ public class PasienModel implements Serializable {
     @NotNull
     private String idEmergencyContact;
 
+    @NotNull
+    @Column(name="idAsuransi")
+    private String idAsuransi;
+
 
 
 
@@ -121,5 +125,13 @@ public class PasienModel implements Serializable {
 
     public void setIdEmergencyContact(String idEmergencyContact) {
         this.idEmergencyContact = idEmergencyContact;
+    }
+
+    public String getIdAsuransi() {
+        return idAsuransi;
+    }
+
+    public void setIdAsuransi(String idAsuransi) {
+        this.idAsuransi = idAsuransi;
     }
 }

@@ -37,24 +37,28 @@
     <br>
 
 
-    <script>
-        $(document).ready(function(){
-            $('#buttonToAddDD').click(function(){
-                $("#dd1").append($("#dd2").clone());
-            });
-        });
-    </script>
+    <!--<script>-->
+        <!--$(document).ready(function(){-->
+            <!--$('#buttonToAddDD').click(function(){-->
+                <!--$("#dd1").append($("#dd2").clone());-->
+            <!--});-->
+        <!--});-->
+    <!--</script>-->
     Asuransi: <br>
-    <div id="dd1">
-        <div id="dd2">
-            <select th:field="${listAsuransi}"  id="dropdownList" name="listAsuransi">
-                <option value="0">Pilih Asuransi</option>
-                <option th:each="asuransi : ${listAsuransi}" th:value="${asuransi}" th:text="${asuransi.nama}"></option>
-            </select>
+    <select th:field="*{idAsuransi}"  id="dropdownList" name="idAsuransi">
+        <option value="0">Pilih Asuransi</option>
+        <option th:each="asuransi : ${listAsuransi}" th:value="${asuransi.idAsuransi}" th:text="${asuransi.nama}"></option>
+    </select>
+    <!--<div id="dd1">-->
+        <!--<div id="dd2">-->
+            <!--<select th:field="${listAsuransi}"  id="dropdownList" name="listAsuransi">-->
+                <!--<option value="0">Pilih Asuransi</option>-->
+                <!--<option th:each="asuransi : ${listAsuransi}" th:value="${asuransi}" th:text="${asuransi.nama}"></option>-->
+            <!--</select>-->
 
-        </div>
-        <input type="button" id="buttonToAddDD" value="Tambah Asuransi" />
-    </div>
+        <!--</div>-->
+        <!--<input type="button" id="buttonToAddDD" value="Tambah Asuransi" />-->
+    <!--</div>-->
 
     <br>
     Emergency Contact Name: <br>
