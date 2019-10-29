@@ -1,8 +1,8 @@
 package tugas1.sipas.controller;
 
 //import apap.tutorial.gopud.model.MenuModel;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import tugas1.sipas.model.AsuransiModel;
+import tugas1.sipas.model.EmergencyContactModel;
 import tugas1.sipas.model.PasienModel;
 //import apap.tutorial.gopud.service.MenuService;
 import tugas1.sipas.service.AsuransiService;
@@ -15,8 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.math.BigInteger;
 import java.util.*;
 
 @Controller
@@ -33,6 +32,7 @@ public class PasienController {
 
     @RequestMapping("/")
     public String beranda() {
+        List<PasienModel> listPasien = pasienService.getPasienList();
         return "beranda";
     }
 
@@ -42,7 +42,31 @@ public class PasienController {
         List<AsuransiModel> listAsuransi = asuransiService.getListAsuransi();
         model.addAttribute("pasien", newPasien);
         model.addAttribute("listAsuransi", listAsuransi);
+        model.addAttribute("emergencyContact", new EmergencyContactModel());
         return "form-add-pasien";
+    }
+
+
+    @RequestMapping(path = "/pasien/tambah", method = RequestMethod.POST)
+    public String addPasienSubmit(@ModelAttribute PasienModel pasien, Model model, @ModelAttribute EmergencyContactModel emergencyContact) {
+        //generate unique code
+        String currYear = getCurrentYearStr();
+        String birthDateStr = getSplitTanggalLahir(pasien.getTanggalLahir());
+        String randomTwo = makeRandomTwoDigits();
+        String uniqueCode = currYear + birthDateStr + pasien.getJenisKelamin() + randomTwo;
+        pasien.setUniqueCode((uniqueCode));
+        //set no emergencyContact
+        String[] foo = pasien.getIdEmergencyContact().split(",");
+        EmergencyContactModel contact = new EmergencyContactModel(foo[0], foo[1],foo[2]);
+        pasienService.addEmergencyContact(contact);
+        pasien.setIdEmergencyContact(Long.toString(contact.getIdContact()));
+
+
+        //save ke database
+        pasienService.addPasien(pasien);
+        model.addAttribute("namaPasien", pasien.getNama());
+        model.addAttribute("uniqueCode", pasien.getUniqueCode());
+        return "add-pasien";
     }
 
     @RequestMapping(value = "pasien/view-all", method = RequestMethod.GET)
@@ -52,23 +76,33 @@ public class PasienController {
         return "viewall-pasien";
     }
 
-    @RequestMapping(path = "/pasien/tambah", method = RequestMethod.POST)
-    public String addPasienSubmit(@ModelAttribute PasienModel pasien, Model model) {
-        pasienService.addPasien(pasien);
-        model.addAttribute("namaPasien", pasien.getNama());
-        return "add-pasien";
+    //METHOD LAIN-LAIN
+    protected String getCurrentYearStr() {
+        return "" + (Calendar.getInstance().get(Calendar.YEAR) + 5 );
+    }
+
+    static protected String getSplitTanggalLahir(String tanggal){
+        String temp = "";
+        String[] arr = tanggal.split("-");
+        arr[0] = arr[0].substring(0, 2);
+        for (int i = 2; i>=0; i--){temp = temp + arr[i];}
+        return  temp;
+    }
+
+    static public String makeRandomTwoDigits() {
+        String digit ="";
+        String sourceStr= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        String[] temp= sourceStr.split("");
+        int range = 61;
+        for (int i = 0; i < 2; i++) {
+            int rand = (int) (Math.random() * range);
+            digit += temp[rand];
+        }
+        return digit;
     }
 
 
 
 
-    @Override
-    protected void initBinder(PortletRequest request, PortletRequestDataBinder binder) throws Exception {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        df.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(df, true));
-
-        super.initBinder(request,binder);
-    }
 
 }

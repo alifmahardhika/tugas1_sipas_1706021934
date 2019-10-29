@@ -1,6 +1,8 @@
 package tugas1.sipas.service;
 
+import tugas1.sipas.model.EmergencyContactModel;
 import tugas1.sipas.model.PasienModel;
+import tugas1.sipas.repository.EmergencyContactDB;
 import tugas1.sipas.repository.PasienDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,14 @@ public class PasienServiceImpl implements PasienService {
     @Autowired
     private PasienDB pasienDB;
 
+    @Autowired
+    private EmergencyContactDB emergencyContactDB;
+
     @Override
     public void addPasien(PasienModel pasien) {pasienDB.save(pasien);}
+
+    @Override
+    public void addEmergencyContact(EmergencyContactModel contact) {emergencyContactDB.save(contact);}
 
     @Override
     public void removePasien(Long idPasien) {

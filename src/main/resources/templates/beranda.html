@@ -14,12 +14,43 @@
     <a th:href="@{pasien/tambah}" style="color: white">Tambah Pasien Baru</a>
 </button>
 <h2>Daftar Pasien</h2>
-<div th:each="pasien : ${pasienList}">
-    <h3 th:text="'Nama Restoran: ' + ${pasien.nama}"></h3>
-    <h3 th:text="'NIK: ' + ${pasien.nik}"></h3>
-    <h3 th:text="'Jenis Kelamin: ' + ${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></h3>
-    <h3 th:text="'Tempat Lahir: ' + ${pasien.tempatLahir}"></h3>
-    <h3 th:text="'Tanggal Lahir: ' + ${pasien.tanggalLahir}"></h3>
+
+<div class="container-fluid" align="center">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Nik</th>
+            <th scope="col">Jenis Kelamin</th>
+            <th scope="col">Kode Pasien</th>
+            <th scope="col">Tempat Lahir</th>
+            <th scope="col">Tanggal Lahir</th>
+            <th scope="col">Telepon Emergency Contact</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:object="${pasien}" th:each="pasien, iterationStatus : *{listPasien }">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${pasien.nama}" th:value="${pasien.nama}" ></td>
+            <td th:text="${pasien.nik}"></td>
+            <td th:text="${pasien.Jenis Kelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></td>
+            <td th:text="${pasien.Kode Pasien}"></td>
+            <td th:text="${pasien.nik}"></td>
+            <td th:text="${pasien.tempatLahir}"></td>
+            <td th:text="${pasien.tanggalLahir}"></td>
+            <td th:text="${pasien.getEmergencyContact().getNoHp()}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+
+<!--<div th:each="pasien : ${listPasien}">-->
+    <!--<h3 th:text="'Nama Restoran: ' + ${pasien.nama}"></h3>-->
+    <!--<h3 th:text="'NIK: ' + ${pasien.nik}"></h3>-->
+    <!--<h3 th:text="'Jenis Kelamin: ' + ${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></h3>-->
+    <!--<h3 th:text="'Tempat Lahir: ' + ${pasien.tempatLahir}"></h3>-->
+    <!--<h3 th:text="'Tanggal Lahir: ' + ${pasien.tanggalLahir}"></h3>-->
+<!--</div>-->
 </body>
 </html>

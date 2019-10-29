@@ -37,10 +37,10 @@ public class PasienModel implements Serializable {
     @Column(name="nik", nullable = false)
     private String nik;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+//    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @NotNull
     @Column(name="tanggalLahir", nullable = false)
-    private Date tanggalLahir;
+    private String tanggalLahir;
 
     @NotNull
     @Size(max =255)
@@ -48,10 +48,9 @@ public class PasienModel implements Serializable {
     private String tempatLahir;
 
     @NotNull
-    @UniqueElements
-    @Size(max =255)
     @Column(name="uniqueCode", nullable = false)
     private String uniqueCode;
+
 
     @ManyToMany
     @JoinTable(
@@ -60,32 +59,11 @@ public class PasienModel implements Serializable {
             inverseJoinColumns = @JoinColumn(name="idAsuransi"))
     List<AsuransiModel> listAsuransi;
 
-    public EmergencyContactModel getEmergencyContact() {
-        return emergencyContact;
-    }
+    @NotNull
+    private String idEmergencyContact;
 
-    public void setEmergencyContact(EmergencyContactModel emergencyContact) {
-        this.emergencyContact = emergencyContact;
-    }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "EmergencyContactId", referencedColumnName = "idContact")
-    private EmergencyContactModel emergencyContact;
 
-//    private AsuransiModel asuransi;
-    ////////////////////////////////kyknya harusnya relationship
-//    EmergencyContact emergencyContact = new EmergencyContact();
-//    ArrayList<Asuransi> listAsuransi = new ArrayList<>();
-//    ArrayList<Penyakit> listPenyakit = new ArrayList<>();
-
-    //CONSTRUCTOR
-//    public PasienModel(@NotNull @Size(max = 255) String nama, @NotNull Integer jenisKelamin, @NotNull @Size(max = 255) String nik, @NotNull Date tanggalLahir, @NotNull @Size(max = 255) String tempatLahir) {
-//        this.nama = nama;
-//        this.jenisKelamin = jenisKelamin;
-//        this.nik = nik;
-//        this.tanggalLahir = tanggalLahir;
-//        this.tempatLahir = tempatLahir;
-//    }
 
     //SETTER & GETTER
     public Integer getIdPasien() {
@@ -112,10 +90,10 @@ public class PasienModel implements Serializable {
     public void setNik(String nik) {
         this.nik = nik;
     }
-    public Date getTanggalLahir() {
+    public String getTanggalLahir() {
         return tanggalLahir;
     }
-    public void setTanggalLahir(Date tanggalLahir) {
+    public void setTanggalLahir(String tanggalLahir) {
         this.tanggalLahir = tanggalLahir;
     }
     public String getTempatLahir() {
@@ -130,20 +108,18 @@ public class PasienModel implements Serializable {
     public void setUniqueCode(String uniqueCode) {
         this.uniqueCode = uniqueCode;
     }
-
     public List<AsuransiModel> getListAsuransi() {
         return listAsuransi;
     }
-
     public void setListAsuransi(List<AsuransiModel> listAsuransi) {
         this.listAsuransi = listAsuransi;
     }
 
-    //METHODS
-//    public String getSplitTanggalLahir(){
-//        String temp = "";
-//        String[] arr = getTanggalLahir().split("/");
-//        for (String val: arr){temp = temp + val;}
-//        return  temp;
-//    }
+    public String getIdEmergencyContact() {
+        return idEmergencyContact;
+    }
+
+    public void setIdEmergencyContact(String idEmergencyContact) {
+        this.idEmergencyContact = idEmergencyContact;
+    }
 }

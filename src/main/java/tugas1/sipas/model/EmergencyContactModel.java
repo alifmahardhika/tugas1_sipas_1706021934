@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -33,8 +34,8 @@ public class EmergencyContactModel implements Serializable {
     @Column(name = "noHp", nullable = false)
     private String noHp;
 
-    @OneToOne(mappedBy = "emergencyContact")
-    private PasienModel pasien;
+//    @OneToOne(mappedBy = "emergencyContact")
+//    private PasienModel pasien;
 
     //SETTER AND GETTER
 
@@ -67,15 +68,23 @@ public class EmergencyContactModel implements Serializable {
         return noHp;
     }
 
+
     public void setNoHp(String noHp) {
         this.noHp = noHp;
     }
 
-    public PasienModel getPasien() {
-        return pasien;
+    //CONSTRUCTOR
+
+
+    public EmergencyContactModel() {
+        this.nama = "default";
+        this.nik = "default";
+        this.noHp = "00000";
     }
 
-    public void setPasien(PasienModel pasien) {
-        this.pasien = pasien;
+    public EmergencyContactModel(@NotNull @Size(max = 20) String nama, @NotNull @Size(max = 255) String nik, @NotNull @Size(max = 20) String noHp) {
+        this.nama = nama;
+        this.nik = nik;
+        this.noHp = noHp;
     }
 }

@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymelaf.org">
-<!--<head>-->
-    <!--<meta charset="UTF-8">-->
+<head>
+    <meta charset="UTF-8">
     <!--<title>Tambah Pasien</title>-->
     <!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
     <!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
-<!--</head>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+
+
+
 <body>
 <!--<nav th:replace="fragments/fragment :: navbar (pageTitle='Add Pasien')"></nav>-->
 
@@ -22,24 +28,46 @@
         <option th:value="1" th:text="Laki-laki"></option>
         <option th:value="2" th:text="Perempuan"></option>
     </select>
-    <!--<form:select path="country" items="${countryList}" />-->
     <br>
     Tanggal Lahir: <br>
-        <input type="date" th:value="${pasien.tanggalLahir}" th:field="${pasien.tanggalLahir}" id="tanggalLahir" pattern="dd-MM-yyyy"/>
+        <input type="date" th:value="${pasien.tanggalLahir}" th:field="${pasien.tanggalLahir}" id="tanggalLahir"/>
     <br>
     Tempat Lahir: <br>
     <input type="text" name="tempatLahir" />
     <br>
+
+
+    <script>
+        $(document).ready(function(){
+            $('#buttonToAddDD').click(function(){
+                $("#dd1").append($("#dd2").clone());
+            });
+        });
+    </script>
     Asuransi: <br>
-    <select th:field="${listAsuransi}"  id="dropdownList">
-        <option value="0">Pilih Asuransi</option>
-        <option th:each="asuransi : ${listAsuransi}" th:value="${asuransi.nama}" th:text="${asuransi.nama}"></option>
-    </select>
-    <!--<select th:field="*{jenisKelamin}">-->
-        <!--<option th:value="1" th:text="Laki-laki"></option>-->
-        <!--<option th:value="2" th:text="Perempuan"></option>-->
-    <!--</select>-->
-    <!--BLM EMERGENCY CONTACT-->
+    <div id="dd1">
+        <div id="dd2">
+            <select th:field="${listAsuransi}"  id="dropdownList" name="listAsuransi">
+                <option value="0">Pilih Asuransi</option>
+                <option th:each="asuransi : ${listAsuransi}" th:value="${asuransi}" th:text="${asuransi.nama}"></option>
+            </select>
+
+        </div>
+        <input type="button" id="buttonToAddDD" value="Tambah Asuransi" />
+    </div>
+
+    <br>
+    Emergency Contact Name: <br>
+    <input type="text" name="idEmergencyContact" />
+    <br>
+    Emergency Contact NIK: <br>
+    <input type="text" name="idEmergencyContact" />
+    <br>
+    Emergency Contact Phone: <br>
+    <input type="number" name="idEmergencyContact" />
+    <br>
+
+
     <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 

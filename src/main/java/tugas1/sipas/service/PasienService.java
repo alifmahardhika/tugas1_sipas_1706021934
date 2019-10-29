@@ -3,6 +3,7 @@ package tugas1.sipas.service;
 import java.util.List;
 import java.util.Optional;
 
+import tugas1.sipas.model.EmergencyContactModel;
 import tugas1.sipas.model.PasienModel;
 
 
@@ -24,4 +25,6 @@ public interface PasienService {
     void removePasien(Long idPasien);
 
     Boolean findPasien(String idPasien);
+
+    void addEmergencyContact(EmergencyContactModel contact);
 }
