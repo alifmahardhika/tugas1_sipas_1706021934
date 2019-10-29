@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import tugas1.sipas.model.EmergencyContactModel;
+import tugas1.sipas.model.PasienAsuransiModel;
 import tugas1.sipas.model.PasienModel;
 
 
@@ -27,4 +28,6 @@ public interface PasienService {
     Boolean findPasien(String idPasien);
 
     void addEmergencyContact(EmergencyContactModel contact);
+
+    void addAsuransiRelation(PasienAsuransiModel relasi);
 }

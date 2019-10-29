@@ -49,6 +49,11 @@
         <option value="0">Pilih Asuransi</option>
         <option th:each="asuransi : ${listAsuransi}" th:value="${asuransi.idAsuransi}" th:text="${asuransi.nama}"></option>
     </select>
+
+    <select th:field="*{idAsuransi}"  name="idAsuransi">
+        <option value="0">Pilih Asuransi</option>
+        <option th:each="asuransi : ${listAsuransi}" th:value="${asuransi.idAsuransi}" th:text="${asuransi.nama}"></option>
+    </select>
     <!--<div id="dd1">-->
         <!--<div id="dd2">-->
             <!--<select th:field="${listAsuransi}"  id="dropdownList" name="listAsuransi">-->

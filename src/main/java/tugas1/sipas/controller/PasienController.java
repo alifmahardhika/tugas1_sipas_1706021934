@@ -1,10 +1,6 @@
 package tugas1.sipas.controller;
 
-//import apap.tutorial.gopud.model.MenuModel;
-import tugas1.sipas.model.AsuransiModel;
-import tugas1.sipas.model.EmergencyContactModel;
-import tugas1.sipas.model.PasienModel;
-//import apap.tutorial.gopud.service.MenuService;
+import tugas1.sipas.model.*;
 import tugas1.sipas.service.AsuransiService;
 import tugas1.sipas.service.AsuransiServiceImpl;
 import tugas1.sipas.service.PasienService;
@@ -55,27 +51,38 @@ public class PasienController {
         String randomTwo = makeRandomTwoDigits();
         String uniqueCode = currYear + birthDateStr + pasien.getJenisKelamin() + randomTwo;
         pasien.setUniqueCode((uniqueCode));
+
         //set no emergencyContact
         String[] foo = pasien.getIdEmergencyContact().split(",");
         EmergencyContactModel contact = new EmergencyContactModel(foo[0], foo[1],foo[2]);
         pasienService.addEmergencyContact(contact);
         pasien.setIdEmergencyContact(Long.toString(contact.getIdContact()));
 
+        pasienService.addPasien(pasien);
         //set Asuransi
         String[] listAsuransiPasien = pasien.getIdAsuransi().split(",");
         List<AsuransiModel> daftar = new ArrayList<>();
         for (int i=0; i<listAsuransiPasien.length; i++){
+            System.out.println("==========================================================*********************************1");
             for (AsuransiModel ass: asuransiService.getListAsuransi()){
-                if (listAsuransiPasien[i] == ass.getNama()){
+                System.out.println("==========================================================*********************************2");
+                if (listAsuransiPasien[i].equalsIgnoreCase(Long.toString(ass.getIdAsuransi()))){
                     daftar.add(ass);
+                    System.out.println("==========================================================*********************************3");
+                    PasienAsuransiModel relasiAsuransi = new PasienAsuransiModel(BigInteger.valueOf(pasien.getIdPasien()),BigInteger.valueOf(ass.getIdAsuransi()));
+                    pasienService.addAsuransiRelation(relasiAsuransi);
+                    System.out.println("==========================================================*********************************4");
+                    System.out.println(relasiAsuransi.getIdAsuransi() + " " +relasiAsuransi.getIdPasien());
                 }
             }
         }
-        pasien.setListAsuransi(daftar);
+//        pasien.setListAsuransi(daftar);
+
+
 
 
         //save ke database
-        pasienService.addPasien(pasien);
+//        pasienService.addPasien(pasien);
         model.addAttribute("namaPasien", pasien.getNama());
         model.addAttribute("uniqueCode", pasien.getUniqueCode());
         return "add-pasien";
