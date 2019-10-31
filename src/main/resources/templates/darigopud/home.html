@@ -13,17 +13,17 @@
     <div class="container-fluid">
 <h2>Selamat datang di GOPUD!</h2>
         <button class ="btn btn-primary">
-            <a th:href="@{restoran/view-all}" style="color: white">View All Restoran</a>
+            <a th:href="@{pasien/view-all}" style="color: white">View All Pasien</a>
         </button>
         <hr>
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">Tambah Restoran</div>
+                    <div class="card-header">Tambah Pasien</div>
                     <div class="card-body">
-                        <p>Fitur untuk menambah restoran</p>
+                        <p>Fitur untuk menambah pasien</p>
                         <button class="btn btn-primary">
-                            <a th:href="@{/restoran/add}" style="color: white">Tambah Restoran</a>
+                            <a th:href="@{/pasien/add}" style="color: white">Tambah Pasien</a>
                         </button>
                     </div>
                 </div>
@@ -33,11 +33,11 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header"> Cari Restoran Berdasarkan ID</div>
+                    <div class="card-header"> Cari Pasien Berdasarkan ID</div>
                     <div class="card-body">
-                        <form th:action="@{/restoran/view}" method="GET">
-                            <label for="idRestoran">Id Restoran</label>
-                            <input type="text" name="idRestoran" class="form-control"/>
+                        <form th:action="@{/pasien/view}" method="GET">
+                            <label for="idPasien">Id Pasien</label>
+                            <input type="text" name="idPasien" class="form-control"/>
                             <br>
                             <button class="btn btn-primary" type="submit"> Cari </button>
                         </form>

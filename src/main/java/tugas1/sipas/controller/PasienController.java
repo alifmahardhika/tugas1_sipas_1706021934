@@ -144,6 +144,54 @@ public class PasienController {
         }
     }
 
+    @RequestMapping(path = "/pasien", method = RequestMethod.GET)
+    public String view(
+            @RequestParam(value = "nik") String nik, Model model
+    ) {
+        List<PasienModel> allPasien = pasienService.getPasienList();
+        PasienModel targetPasien=null;
+        for (PasienModel pasienModel : allPasien){
+            if (pasienModel.getNik().equalsIgnoreCase(nik)){
+                targetPasien = pasienModel;
+            }
+        }
+
+        List<EmergencyContactModel> contactList = emergencyService.getContactList();
+        EmergencyContactModel contactTarget = targetPasien.getEmergencyContact(contactList);
+
+        List<Long> daftarIdAsuransiPasien = new ArrayList<>();
+        List<AsuransiModel> daftarAsuransiPasien = new ArrayList<>();
+        List<PasienAsuransiModel> listAsuransiPasien = pasienService.findAsuransiPasien();
+        String[] listAsuransiPasienSplit = targetPasien.getIdAsuransi().split(",");
+
+        //ambil id asuransi dari relasi
+        for (int i = 0; i<listAsuransiPasienSplit.length; i++){
+            for (PasienAsuransiModel relasi:listAsuransiPasien){
+                String idPasienDiRelasi = "" + relasi.getIdPasien();
+                if (idPasienDiRelasi.equalsIgnoreCase(Long.toString(targetPasien.getIdPasien()))){
+                    daftarIdAsuransiPasien.add(Long.valueOf("" + (relasi.getIdAsuransi())));
+                }
+            }
+        }
+        //isi list asuransi pasien
+        for (int i = 0; i<daftarIdAsuransiPasien.size(); i++){
+            for (int n = 0; n<asuransiService.getListAsuransi().size(); n++){
+                if (daftarIdAsuransiPasien.get(i) == asuransiService.getListAsuransi().get(n).getIdAsuransi()){
+                    daftarAsuransiPasien.add(asuransiService.getListAsuransi().get(n));
+                }
+            }
+        }
+
+        model.addAttribute("pasien", targetPasien);
+        model.addAttribute("emergencyContact", contactTarget);
+        model.addAttribute("listAsuransi", daftarAsuransiPasien);
+
+
+
+        //return view template
+        return "view-pasien";
+    }
+
 
     //METHOD LAIN-LAIN
     protected String getCurrentYearStr() {

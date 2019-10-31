@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeLeaf.org">
 <head>
-    <title>View Restoran</title>
+    <title>View Pasien</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
@@ -9,11 +9,11 @@
 <nav th:replace="fragments/fragment :: navbar (pageTitle='Delete')"></nav>
 
 <div th:if="${resto == null}">
-    <h2>Restoran telah dihapus.</h2>
+    <h2>Pasien telah dihapus.</h2>
 </div>
 
 <div th:unless="${resto == null}">
-    <h2>Informasi restoran tidak ada.</h2>
+    <h2>Informasi pasien tidak ada.</h2>
 
 </div>
 </body>

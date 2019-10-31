@@ -35,7 +35,7 @@ public class PasienModel implements Serializable {
 
     @NotNull
     @Size(max =255)
-    @Column(name="nik", nullable = false)
+    @Column(name="nik", nullable = false, unique = true)
     private String nik;
 
 //    @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -149,8 +149,11 @@ public class PasienModel implements Serializable {
 
     public EmergencyContactModel getEmergencyContact(List<EmergencyContactModel> listContact){
         EmergencyContactModel contact = null;
+        System.out.println("===========1");
         for (EmergencyContactModel contact2 : listContact){
-            if (idEmergencyContact.equalsIgnoreCase(Long.toString(contact.getIdContact()))){
+            System.out.println("===========for " + idEmergencyContact + " " + contact2.getIdContact() );
+            if (idEmergencyContact.equalsIgnoreCase(Long.toString(contact2.getIdContact()))){
+                System.out.println("===========if");
                 contact = contact2;
             }
         }

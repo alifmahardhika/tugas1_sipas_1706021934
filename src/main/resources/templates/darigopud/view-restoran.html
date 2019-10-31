@@ -2,28 +2,28 @@
 <html xmlns:th="http://thymeLeaf.org">
 <head >
     <meta charset="UTF-8">
-    <title>View Restoran</title>
+    <title>View Pasien</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar (pageTitle='View Restoran')"></nav>
+<nav th:replace="fragments/fragment :: navbar (pageTitle='View Pasien')"></nav>
 <div class="container-fluid">
-    <h2>Informasi Restoran</h2>
-    <h3 th:text="'ID Restoran ' + ${restoran.idRestoran}"></h3>
-    <h3 th:text="'Nama Restoran ' + ${restoran.nama}"></h3>
-    <h3 th:text="'Alamat Restoran ' + ${restoran.alamat}"></h3>
-    <h3 th:text="'Nomor Telp. Restoran ' + ${restoran.nomorTelepon}"></h3>
+    <h2>Informasi Pasien</h2>
+    <h3 th:text="'ID Pasien ' + ${pasien.idPasien}"></h3>
+    <h3 th:text="'Nama Pasien ' + ${pasien.nama}"></h3>
+    <h3 th:text="'Alamat Pasien ' + ${pasien.alamat}"></h3>
+    <h3 th:text="'Nomor Telp. Pasien ' + ${pasien.nomorTelepon}"></h3>
 
-    <form th:action="@{/restoran/change/}+${restoran.idRestoran}">
+    <form th:action="@{/pasien/change/}+${pasien.idPasien}">
         <button class="btn btn-sm btn-primary">
-            Change Data Restoran
+            Change Data Pasien
         </button>
     </form>
 
     <h2>Daftar Menu:</h2>
 
-    <form th:action="@{/menu/delete}" th:object="${restoran}" method="POST">
+    <form th:action="@{/menu/delete}" th:object="${pasien}" method="POST">
         <table>
             <thead>
             <tr>
@@ -53,7 +53,7 @@
         <button type="submit" class="btn btn-sm btn-danger">Hapus yang dipilih</button>
     </form>
     <br>
-    <form th:action="@{/menu/add/}+${restoran.idRestoran}">
+    <form th:action="@{/menu/add/}+${pasien.idPasien}">
         <button class="btn btn-sm btn-primary">
             Add Menu
         </button>

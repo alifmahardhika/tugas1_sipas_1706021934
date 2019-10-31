@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+<!--<head >-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>View Pasien</title>-->
+    <!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
+    <!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+<!--</head>-->
+<body>
+<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='View Pasien')"></nav>-->
+<div class="container-fluid">
+    <h2>Detail Data Pasien</h2>
+    <a th:href="@{/}" style="color: white">Kembali ke Beranda</a>
+    <h3 th:text="'Nama Pasien ' + ${pasien.nama}"></h3>
+    <h3 th:text="'NIK ' + ${pasien.nik}"></h3>
+    <h3 th:text="'Kode ' + ${pasien.uniqueCode}"></h3>
+    <h3 th:text="'Jenis Kelamin ' + ${pasien.jenisKelamin}"></h3>
+    <h3 th:text="'Tanggal Lahir ' + ${pasien.tanggalLahir}"></h3>
+    <h3 th:text="'Tempat Lahir ' + ${pasien.tempatLahir}"></h3>
+    <h3 th:text="'Emergency Contact ' + ${emergencyContact.nama} + ' - ' + ${emergencyContact.nik} + ' - ' + ${emergencyContact.noHp}"></h3>
+
+    <br>
+    <h2>Asuransi milik Pasien</h2>
+    <!--<div th:field="*{idAsuransi}"  id="dropdownList" name="idAsuransi">-->
+        <!--<h3 th:each="asuransi : ${listAsuransi}" th:text="${asuransi.nama}"></h3>-->
+    <!--</div>-->
+    <tr th:object="${asuransi}" th:each="asuransi, iterationStatus : *{listAsuransi }">
+        <td th:text="${iterationStatus.count}"></td>
+        <br>
+        <td th:text="${asuransi.nama}" th:value="${asuransi.nama}" ></td>
+    </tr>
+
+</div>
+</body>
+</html>

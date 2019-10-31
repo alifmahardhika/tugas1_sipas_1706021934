@@ -12,8 +12,8 @@
 <h2>Hello!!!!</h2>
 
 <h3>Tambah Menu</h3>
-<form th:action="@{/menu/add/{id}(id=${idRestoran})}" th:object="${restoran}" method="POST">
-    <input type="hidden" th:field="*{idRestoran}"/>
+<form th:action="@{/menu/add/{id}(id=${idPasien})}" th:object="${pasien}" method="POST">
+    <input type="hidden" th:field="*{idPasien}"/>
     <table class="table">
         <thead>
         <tr>

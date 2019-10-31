@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymelaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Change Restoran</title>
+    <title>Change Pasien</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar (pageTitle='Change Restoran')"></nav>
+<nav th:replace="fragments/fragment :: navbar (pageTitle='Change Pasien')"></nav>
 
-<h2 th:text="'Restoran dengan nama' + ${restoran.nama} + ' berhasil diubah.'"></h2>
+<h2 th:text="'Pasien dengan nama' + ${pasien.nama} + ' berhasil diubah.'"></h2>
 </body>
 </html>

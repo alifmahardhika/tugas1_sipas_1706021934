@@ -54,7 +54,7 @@ public class AsuransiController {
 
 //
 //
-//    @RequestMapping(value = "/restoran/delete/{idRestoran}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/pasien/delete/{idPasien}", method = RequestMethod.GET)
 //    public String hapusAsuransiWithId(@PathVariable Long idAsuransi, @ModelAttribute AsuransiModel asuransi, Model model) {
 //
 //        AsuransiModel asuransiku = asuransiService.getAsuransiByIdAsuransi(idAsuransi).get();

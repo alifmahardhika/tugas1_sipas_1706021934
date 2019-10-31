@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeLeaf.org">
 
 <!--<head>-->
-    <!--<title>View All Restoran</title>-->
+    <!--<title>View All Pasien</title>-->
     <!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
     <!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
 <!--</head>-->
@@ -40,22 +40,33 @@
             <td th:text="${pasien.tanggalLahir}"></td>
             <td th:text="${pasien.getNoHpContact(listContact)}"></td>
 
+
+            <!--<form th:action="@{/restoran/view}" method="GET">-->
+                <!--<label for="idRestoran">Id Restoran</label>-->
+                <!--<input type="text" name="idRestoran" class="form-control"/>-->
+                <!--<br>-->
+                <!--<button class="btn btn-primary" type="submit"> Cari </button>-->
+            <!--</form>-->
+
+            <!--<div class="col-sm-2" >-->
+                <!--<a th:href="@{/pasien}" method="GET">-->
+                    <!--<button type="button" class="btn btn-secondary" th:value="pasien.nik" th:name="pasien.nik" for="nik">Lihat</button>-->
+                <!--</a>-->
+            <!--</div>-->
+
+            <form th:action="@{/pasien}" method ="GET">
+                <button  th:name="nik" th:value="${pasien.nik}">Lihat</button>
+            </form>
+
+
             <div class="col-sm-2" >
                 <a th:href="@{/pasien/hapus/} + ${pasien.idPasien}">
-                    <button type="button" class="btn btn-secondary">hapus</button>
+                    <button type="button" class="btn btn-secondary">Hapus</button>
                 </a>
             </div>
         </tr>
         </tbody>
     </table>
 </div>
-
-<!--<div th:each="pasien : ${listPasien}">-->
-    <!--<h3 th:text="'Nama Restoran: ' + ${pasien.nama}"></h3>-->
-    <!--<h3 th:text="'NIK: ' + ${pasien.nik}"></h3>-->
-    <!--<h3 th:text="'Jenis Kelamin: ' + ${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></h3>-->
-    <!--<h3 th:text="'Tempat Lahir: ' + ${pasien.tempatLahir}"></h3>-->
-    <!--<h3 th:text="'Tanggal Lahir: ' + ${pasien.tanggalLahir}"></h3>-->
-<!--</div>-->
 </body>
 </html>
