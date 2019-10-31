@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelaf.org">
+<!--<head>-->
+<!--<meta charset="UTF-8">-->
+<!--<title>Tambah Pasien</title>-->
+<!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
+<!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+<!--</head>-->
+<body>
+<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='Add Pasien')"></nav>-->
+
+<h3>Tambah Diagnosis</h3>
+<form th:action="@{/diagnosis-penyakit/tambah}" th:object="${newDiagnosis}" method="POST">
+    Nama: <br>
+    <input type="text" name="namaDiagnosis" />
+    <br>
+    Kode: <br>
+    <input type="text" name="kode" />
+    <br>
+
+    <br>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+</body>
+</html>

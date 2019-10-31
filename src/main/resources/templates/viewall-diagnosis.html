@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+
+<!--<head>-->
+<!--<title>View All Pasien</title>-->
+<!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
+<!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+<!--</head>-->
+
+<body>
+<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='View All')"></nav>-->
+<h2 style="text-align:center">Sistem Informasi Pasien</h2>
+<button class ="btn btn-primary">
+    <a th:href="@{diagnosis-penyakit/tambah}" style="color: white">Tambah Diagnosis Baru</a>
+</button>
+<h2>Daftar Diagnosis</h2>
+
+<div class="container-fluid" align="center">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Kode</th>
+            <th scope="col">Jumlah Pasien Terdiagnosis</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:object="${diagnosis}" th:each="diagnosis, iterationStatus : *{listDiagnosis }">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${diagnosis.namaDiagnosis}" th:value="${diagnosis.namaDiagnosis}" ></td>
+            <td th:text="${diagnosis.kode}"></td>
+            <!--<td th:text="${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></td>-->
+
+
+            <form th:action="@{/diagnosis-penyakit}" method ="GET">
+                <button  th:name="idDiagnosis" th:value="${diagnosis.idDiagnosis}">Lihat</button>
+            </form>
+
+            <!--<div class="col-sm-2" >-->
+                <!--<a th:href="@{/pasien/ubah/} + ${pasien.nik}">-->
+                    <!--<button type="button" class="btn btn-secondary">Ubah</button>-->
+                <!--</a>-->
+            <!--</div>-->
+
+            <div class="col-sm-2" >
+                <a th:href="@{/diagnosis-penyakit/hapus/} + ${diagnosis.idDiagnosis}">
+                    <button type="button" class="btn btn-secondary">Hapus</button>
+                </a>
+            </div>
+        <!--</tr>-->
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

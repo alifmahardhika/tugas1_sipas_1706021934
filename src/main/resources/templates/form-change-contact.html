@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--<html xmlns:th="http://www.thymelaf.org"><head>-->
+<!--<meta charset="UTF-8">-->
+<!--<title>Change Data Pasien</title>-->
+<!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
+<!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+<!--</head>-->
+<body>
+<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='Change Pasien')"></nav>-->
+
+<h2>Change Data Pasien</h2>
+<form th:action="@{/pasien/ubah/emergencyContact/{idContact}(idContact=${contactPasien.idContact})}" method="POST">
+
+    Emergency Contact Name: <br>
+    <input type="hidden" th:field="${contactPasien.idContact}" />
+    <input type="hidden" th:field="${contactPasien.idContact}" />
+
+    <input type="text" name="nama" th:value="${contactPasien.nama}"/>
+    <br>
+    Emergency Contact NIK: <br>
+    <input type="text" name="nik" th:value="${contactPasien.nik}"/>
+    <br>
+    Emergency Contact Phone: <br>
+    <input type="number" name="noHp" th:value="${contactPasien.noHp}"/>
+    <br>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+</body>
+</html>

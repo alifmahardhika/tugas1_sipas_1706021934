@@ -21,5 +21,23 @@ public class EmergencyServiceImpl implements  EmergencyService{
     public List<EmergencyContactModel> getContactList(){
         List<EmergencyContactModel> list = emergencyContactDB.findAll();
         return list;
-    };
+    }
+
+    @Override
+    public void removeEmergencyContact(Long id) {emergencyContactDB.deleteById(id);}
+
+    @Override
+    public EmergencyContactModel changeContact(EmergencyContactModel contact) {
+        EmergencyContactModel targetContact = emergencyContactDB.findById(contact.getIdContact()).get();
+
+        try{
+            targetContact.setNama(contact.getNama());
+            targetContact.setNik((contact.getNik()));
+            targetContact.setNoHp(contact.getNoHp());
+            emergencyContactDB.save(contact);
+            return targetContact;
+        } catch (NullPointerException nullException){
+            return null;
+        }
+    }
 }

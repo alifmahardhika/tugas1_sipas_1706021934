@@ -9,20 +9,52 @@
 <!--<nav th:replace="fragments/fragment :: navbar (pageTitle='Change Pasien')"></nav>-->
 
 <h2>Change Data Pasien</h2>
-<form th:action="@{/pasien/change/{idPasien}(idPasien=${pasien.idPasien})}" th:object="${pasien}" method="POST">
+<form th:action="@{/pasien/ubah/{nikPasien}(nikPasien=${pasien.nik})}" method="POST">
     <input type="hidden" th:field="${pasien.idPasien}" />
+    <input type="hidden" th:field="${pasien.idEmergencyContact}" />
+
     Nama Pasien: <br>
     <input type="text" name="nama" th:value="${pasien.nama}" />
     <br>
-    Alamat: <br>
-    <input type="text" name="alamat" th:value="${pasien.alamat}" />
+    NIK: <br>
+    <input type="text" name="nik" th:value="${pasien.nik}" />
     <br>
-    Nomor Telepon: <br>
-    <input type="number" name="nomorTelepon" th:value="${pasien.nomorTelepon}" />
+    Jenis Kelamin: <br>
+    <select th:field="*{pasien.jenisKelamin}">
+        <option th:value="1" th:text="Laki-laki"></option>
+        <option th:value="2" th:text="Perempuan"></option>
+    </select>
     <br>
+    Tanggal Lahir: <br>
+    <input type="date" name="tanggalLahir" th:value="${pasien.tanggalLahir}" />
+    <br>
+    Tempat Lahir: <br>
+    <input type="text" name="tempatLahir" th:value="${pasien.tempatLahir}" />
+    <br>
+
+
+
+    <!--Emergency Contact Name: <br>-->
+    <!--<input type="hidden" th:field="${contactPasien.idContact}" />-->
+
+    <!--<input type="text" name="${pasien.appendIdContact(${contactPasien.nama})}" th:value="${contactPasien.nama}"/>-->
+    <!--<br>-->
+    <!--Emergency Contact NIK: <br>-->
+    <!--<input type="text" name="${pasien.appendIdContact(${contactPasien.nik})}" th:value="${contactPasien.nik}"/>-->
+    <!--<br>-->
+    <!--Emergency Contact Phone: <br>-->
+    <!--<input type="number" name="${pasien.appendIdContact(${contactPasien.noHp})}" th:value="${contactPasien.noHp}"/>-->
+    <!--<br>-->
 
     <br><br>
     <button class="btn btn-primary" type="submit">Submit</button>
+
+    <div class="col-sm-2" >
+        <a th:href="@{/pasien/ubah/emergencyContact/} + ${pasien.nik}">
+            <button type="button" class="btn btn-secondary">Ubah Data Emergency Contact</button>
+        </a>
+    </div>
+
 </form>
 </body>
 </html>

@@ -1,8 +1,6 @@
 package tugas1.sipas.service;
 
-import tugas1.sipas.model.EmergencyContactModel;
-import tugas1.sipas.model.PasienAsuransiModel;
-import tugas1.sipas.model.PasienModel;
+import tugas1.sipas.model.*;
 import tugas1.sipas.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +21,18 @@ public class PasienServiceImpl implements PasienService {
     @Autowired
     private PasienAsuransiDB pasienAsuransiDB;
 
+    @Autowired
+    private DiagnosisPasienDB diagnosisPasienDB;
+
     @Override
     public void addPasien(PasienModel pasien) {pasienDB.save(pasien);}
 
     @Override
     public void addEmergencyContact(EmergencyContactModel contact) {emergencyContactDB.save(contact);}
+
+    @Override
+    public void addDiagnosisPasien(DiagnosisPasienModel diagnosis) {diagnosisPasienDB.save(diagnosis);}
+
 
     @Override
     public void addAsuransiRelation(PasienAsuransiModel relasi) {pasienAsuransiDB.save(relasi);}
@@ -62,19 +67,19 @@ public class PasienServiceImpl implements PasienService {
     @Override
     public PasienModel changePasien(PasienModel pasienModel) {
         // mengambil object pasien yang ingin diubah
-//        PasienModel targetPasien = pasienDB.findById(pasienModel.getIdPasien()).get();
-//
-//        try{
-//            targetPasien.setNama(pasienModel.getNama());
-//            targetPasien.setAlamat((pasienModel.getAlamat()));
-//            targetPasien.setNomorTelepon(pasienModel.getNomorTelepon());
-//            pasienDB.save(targetPasien);
-//            return targetPasien;
-//        } catch (NullPointerException nullException){
-//            return null;
-//        }
-        return null;
+        PasienModel targetPasien = pasienDB.findById(pasienModel.getIdPasien()).get();
 
+        try{
+            targetPasien.setNama(pasienModel.getNama());
+            targetPasien.setNik((pasienModel.getNik()));
+            targetPasien.setJenisKelamin(pasienModel.getJenisKelamin());
+            targetPasien.setTanggalLahir((pasienModel.getTanggalLahir()));
+            targetPasien.setTempatLahir((pasienModel.getTempatLahir()));
+            pasienDB.save(targetPasien);
+            return targetPasien;
+        } catch (NullPointerException nullException){
+            return null;
+        }
     }
 
     @Override
@@ -84,8 +89,19 @@ public class PasienServiceImpl implements PasienService {
     }
 
     @Override
+    public List<DiagnosisPasienModel> findDiagnosisPasien(){
+        List<DiagnosisPasienModel> list = diagnosisPasienDB.findAll();
+        return list;
+    }
+
+    @Override
     public void removeRelasi(Long idRelasi) {
         pasienAsuransiDB.deleteById(idRelasi);
+    }
+
+    @Override
+    public void removeRelasiDiag(Long idRelasi) {
+        diagnosisPasienDB.deleteById(idRelasi);
     }
 
 

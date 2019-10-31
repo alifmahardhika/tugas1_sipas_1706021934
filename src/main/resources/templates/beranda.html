@@ -58,6 +58,11 @@
                 <button  th:name="nik" th:value="${pasien.nik}">Lihat</button>
             </form>
 
+            <div class="col-sm-2" >
+                <a th:href="@{/pasien/ubah/} + ${pasien.nik}">
+                    <button type="button" class="btn btn-secondary">Ubah</button>
+                </a>
+            </div>
 
             <div class="col-sm-2" >
                 <a th:href="@{/pasien/hapus/} + ${pasien.idPasien}">

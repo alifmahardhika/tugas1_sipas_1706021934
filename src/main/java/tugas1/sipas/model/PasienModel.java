@@ -150,10 +150,18 @@ public class PasienModel implements Serializable {
     public EmergencyContactModel getEmergencyContact(List<EmergencyContactModel> listContact){
         EmergencyContactModel contact = null;
         for (EmergencyContactModel contact2 : listContact){
+            System.out.println("hey");
+            System.out.println("hai" + idEmergencyContact + " " +Long.toString(contact2.getIdContact()));
+
             if (idEmergencyContact.equalsIgnoreCase(Long.toString(contact2.getIdContact()))){
                 contact = contact2;
             }
         }
         return contact;
     }
+
+    public void appendIdContact(String app){
+        idEmergencyContact+=app;
+    }
 }
+

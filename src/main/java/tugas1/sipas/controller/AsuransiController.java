@@ -33,40 +33,5 @@ public class AsuransiController {
         asuransiService.tambahAsuransi(asuransi);
         model.addAttribute("nama", asuransi.getNama());
         return "tambah-Asuransi";
-
-
-//    @RequestMapping(value = "/asuransi", method = RequestMethod.GET)
-//    public String viewAll(Model model) {
-//        List<AsuransiModel> allAsuransi = asuransiService.getListAsuransi();
-//        model.addAttribute("asuransiList", allAsuransi);
-//        return "viewasuransi";
-//    }
-
-//    @RequestMapping(path = "/asuransi/view/{idAsuransi}", method = RequestMethod.GET)
-//    public String viewAsuransi(
-//            @PathVariable Long idAsuransi, Model model
-//    ) {
-//        AsuransiModel asuransi = asuransiService.getAsuransiByIdAsuransi(idAsuransi).get();
-//        model.addAttribute("asuransiDetil", asuransi);
-//        return "asuransidetil";
-//    }
-
-
-//
-//
-//    @RequestMapping(value = "/pasien/delete/{idPasien}", method = RequestMethod.GET)
-//    public String hapusAsuransiWithId(@PathVariable Long idAsuransi, @ModelAttribute AsuransiModel asuransi, Model model) {
-//
-//        AsuransiModel asuransiku = asuransiService.getAsuransiByIdAsuransi(idAsuransi).get();
-//        List<PasienModel> obat = pasienService.getPasienList();
-//
-//        if (obat.size() == 0) {
-//            model.addAttribute("obat", obat);
-//            asuransiService.hapusAsuransi(idAsuransi);
-//            return "hapus-asuransi";
-//        }
-//        return "delete-asuransi-fail";
-//
-//
     }
 }

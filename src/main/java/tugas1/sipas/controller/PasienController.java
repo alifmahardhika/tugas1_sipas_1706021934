@@ -1,10 +1,7 @@
 package tugas1.sipas.controller;
 
 import tugas1.sipas.model.*;
-import tugas1.sipas.service.AsuransiService;
-import tugas1.sipas.service.AsuransiServiceImpl;
-import tugas1.sipas.service.EmergencyService;
-import tugas1.sipas.service.PasienService;
+import tugas1.sipas.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -26,6 +23,11 @@ public class PasienController {
 
     @Autowired
     private EmergencyService emergencyService;
+
+    @Autowired
+    private DiagnosisPenyakitService diagnosisPenyakitService;
+
+
 
 //    @Autowired
 //    private MenuService menuService;
@@ -56,6 +58,7 @@ public class PasienController {
     @RequestMapping(path = "/pasien/tambah", method = RequestMethod.POST)
     public String addPasienSubmit(@ModelAttribute PasienModel pasien, Model model, @ModelAttribute EmergencyContactModel emergencyContact) {
         //generate unique code
+
         String currYear = getCurrentYearStr();
         String birthDateStr = getSplitTanggalLahir(pasien.getTanggalLahir());
         String randomTwo = makeRandomTwoDigits();
@@ -98,6 +101,7 @@ public class PasienController {
 
     @RequestMapping(value = "/pasien/hapus/{idPasien}")
     public String deletePasienWithId(@PathVariable(value = "idPasien") Long idPasien,  Model model) {
+        List<EmergencyContactModel> listContact = emergencyService.getContactList();
         try{
             PasienModel pasienNyaNih = null;
             Long idPasienBeneran= Long.valueOf("0");
@@ -131,6 +135,7 @@ public class PasienController {
                     }
                 }
                 pasienService.removePasien(idPasienBeneran);
+                emergencyService.removeEmergencyContact(Long.valueOf(pasienNyaNih.getIdEmergencyContact()));
                 return "pasien-dihapus";
             }
         }
@@ -184,6 +189,140 @@ public class PasienController {
         //return view template
         return "view-pasien";
     }
+
+    @RequestMapping(value = "/pasien/ubah/{nikPasien}", method = RequestMethod.GET)
+    public String changePasienFormPage(@PathVariable String nikPasien, Model model) {
+
+
+        List<PasienModel> allPasien = pasienService.getPasienList();
+        PasienModel targetPasien=null;
+        for (PasienModel pasienModel : allPasien){
+            if (pasienModel.getNik().equalsIgnoreCase(nikPasien)){
+                targetPasien = pasienModel;
+            }
+        }
+        model.addAttribute("pasien", targetPasien);
+        List<EmergencyContactModel> listContact = emergencyService.getContactList();
+        EmergencyContactModel contactPasien = targetPasien.getEmergencyContact(listContact);
+        model.addAttribute("contactPasien", contactPasien);
+
+        return "form-change-pasien";
+    }
+
+
+
+
+    @RequestMapping(value = "/pasien/ubah/{nikPasien}", method = RequestMethod.POST)
+    public String changePasienFormSubmit(@PathVariable String nikPasien, @ModelAttribute("pasien") PasienModel pasien, @ModelAttribute("contactPasien") EmergencyContactModel contactPasien, Model model) throws NullPointerException{
+
+        PasienModel newPasien = pasienService.changePasien(pasien);
+
+        //generate unique code
+        String currYear = getCurrentYearStr();
+        String birthDateStr = getSplitTanggalLahir(newPasien.getTanggalLahir());
+        String randomTwo = makeRandomTwoDigits();
+        String uniqueCode = currYear + birthDateStr + newPasien.getJenisKelamin() + randomTwo;
+        newPasien.setUniqueCode((uniqueCode));
+        newPasien = pasienService.changePasien(newPasien);
+
+
+//        contactPasien = emergencyService.changeContact(contactPasien);
+        model.addAttribute("namaPasien", newPasien.getNama());
+        model.addAttribute("uniqueCode", newPasien.getUniqueCode());
+        return "change-pasien";
+    }
+
+
+    @RequestMapping(value = "/pasien/ubah/emergencyContact/{idContact}", method = RequestMethod.GET)
+    public String changePasienContactForm(@PathVariable String idContact, Model model) {
+        List<EmergencyContactModel> listContact = emergencyService.getContactList();
+        EmergencyContactModel targetContact = null;
+        Long idLong = Long.valueOf((idContact));
+        for (EmergencyContactModel contact:listContact){
+            if(contact.getIdContact() == idLong){
+                targetContact = contact;
+            }
+        }
+
+        model.addAttribute("contactPasien", targetContact);
+        System.out.println(targetContact.getIdContact()+"===================a");
+
+        return "form-change-contact";
+    }
+
+
+
+
+    @RequestMapping(value = "/pasien/ubah/emergencyContact/{idContact}", method = RequestMethod.POST)
+    public String changePasienContact(@PathVariable String idContact, @ModelAttribute("contactPasien") EmergencyContactModel contactPasien, Model model) throws NullPointerException{
+
+        System.out.println(contactPasien.getIdContact()+"===================");
+        EmergencyContactModel contactBaru = emergencyService.changeContact(contactPasien);
+        return "change-contact";
+    }
+
+    @RequestMapping(value = "/pasien/{nikPasien}/tambah-diagnosis", method = RequestMethod.GET)
+    public String tambahDiagnosisForm(@PathVariable String nikPasien, Model model) {
+
+
+        List<PasienModel> allPasien = pasienService.getPasienList();
+        PasienModel targetPasien=null;
+        for (PasienModel pasienModel : allPasien){
+            if (pasienModel.getNik().equalsIgnoreCase(nikPasien)){
+                targetPasien = pasienModel;
+            }
+        }
+        model.addAttribute("pasien", targetPasien);
+        List<EmergencyContactModel> listContact = emergencyService.getContactList();
+        EmergencyContactModel contactPasien = targetPasien.getEmergencyContact(listContact);
+        model.addAttribute("emergencyContact", contactPasien);
+
+        List<DiagnosisPasienModel> listDiagnosisPasien = pasienService.findDiagnosisPasien();
+
+        model.addAttribute("listDiagnosisPasien", listDiagnosisPasien);
+
+        List<DiagnosisPenyakitModel> listDiagnosisPenyakit = diagnosisPenyakitService.getListDiagnosis();
+
+        model.addAttribute("listDiagnosis", listDiagnosisPenyakit);
+        return "pasie-tambah-diagnosis";
+    }
+
+
+
+
+    @RequestMapping(value = "/pasien/{nikPasien}/tambah-diagnosis", method = RequestMethod.POST)
+    public String tambahDiagPost(@PathVariable String nikPasien, @ModelAttribute("pasien.idPasien") String idPasienStr, @ModelAttribute("pasien") PasienModel pasien, @ModelAttribute("diagnosisSakit.idDiagnosis") String idDiagnosisStr, Model model) throws NullPointerException{
+        Long idPasien = Long.valueOf(idPasienStr);
+        Long idDiagnosis = Long.valueOf(idDiagnosisStr);
+        DiagnosisPasienModel diagnosisPasien = new DiagnosisPasienModel(idPasien,idDiagnosis);
+        pasienService.addDiagnosisPasien(diagnosisPasien);
+
+
+
+        /////////////////
+        List<PasienModel> allPasien = pasienService.getPasienList();
+        PasienModel targetPasien=null;
+        for (PasienModel pasienModel : allPasien){
+            if (pasienModel.getNik().equalsIgnoreCase(nikPasien)){
+                targetPasien = pasienModel;
+            }
+        }
+        model.addAttribute("pasien", targetPasien);
+        List<EmergencyContactModel> listContact = emergencyService.getContactList();
+        EmergencyContactModel contactPasien = targetPasien.getEmergencyContact(listContact);
+        model.addAttribute("emergencyContact", contactPasien);
+
+        List<DiagnosisPasienModel> listDiagnosisPasien = pasienService.findDiagnosisPasien();
+
+        model.addAttribute("listDiagnosisPasien", listDiagnosisPasien);
+
+        List<DiagnosisPenyakitModel> listDiagnosisPenyakit = diagnosisPenyakitService.getListDiagnosis();
+
+        model.addAttribute("listDiagnosis", listDiagnosisPenyakit);
+
+        return "pasie-tambah-diagnosis";
+    }
+
 
 
     //METHOD LAIN-LAIN

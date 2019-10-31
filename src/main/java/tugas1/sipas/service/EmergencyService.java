@@ -10,4 +10,8 @@ import java.util.Optional;
 
 public interface EmergencyService {
     List<EmergencyContactModel> getContactList();
+    void removeEmergencyContact(Long id);
+    EmergencyContactModel changeContact(EmergencyContactModel contact);
+
 }
+
