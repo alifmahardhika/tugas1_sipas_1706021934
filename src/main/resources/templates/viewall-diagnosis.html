@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeLeaf.org">
 
-<!--<head>-->
-<!--<title>View All Pasien</title>-->
-<!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
-<!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
-<!--</head>-->
+<head>
+<title>View All Pasien</title>
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
 
 <body>
-<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='View All')"></nav>-->
+<nav th:replace="fragments/fragment :: navbar (pageTitle='View All Diagnosis')"></nav>
+<br>
 <h2 style="text-align:center">Sistem Informasi Pasien</h2>
 <button class ="btn btn-primary">
-    <a th:href="@{diagnosis-penyakit/tambah}" style="color: white">Tambah Diagnosis Baru</a>
+    <a th:href="@{/diagnosis-penyakit/tambah}" style="color: white">Tambah Diagnosis Penyakit Baru</a>
 </button>
-<h2>Daftar Diagnosis</h2>
+
+<br>
+<div class="card-header bg bg-dark">
+    <p style="color: white; size: 12px;">Daftar Diagnosis Penyakit</p>
+</div>
 
 <div class="container-fluid" align="center">
     <table class="table">
@@ -23,32 +28,37 @@
             <th scope="col">Nama</th>
             <th scope="col">Kode</th>
             <th scope="col">Jumlah Pasien Terdiagnosis</th>
+            <th scope="col"></th>
+
         </tr>
         </thead>
-        <tbody>
+        <tbody style="width:100%">
         <tr th:object="${diagnosis}" th:each="diagnosis, iterationStatus : *{listDiagnosis }">
             <td th:text="${iterationStatus.count}"></td>
             <td th:text="${diagnosis.namaDiagnosis}" th:value="${diagnosis.namaDiagnosis}" ></td>
             <td th:text="${diagnosis.kode}"></td>
-            <!--<td th:text="${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></td>-->
 
+            <td style="white-space: nowrap;">
+                <div class="row" style="width:100%">
+                    <div class="col-sm-4">
+                        <form th:action="@{/diagnosis-penyakit}" method ="GET">
+                            <button  class="btn btn-sm btn-primary" th:name="idDiagnosis" th:value="${diagnosis.idDiagnosis}">Lihat</button>
+                        </form>
+                    </div>
 
-            <form th:action="@{/diagnosis-penyakit}" method ="GET">
-                <button  th:name="idDiagnosis" th:value="${diagnosis.idDiagnosis}">Lihat</button>
-            </form>
+                    <!--<div class="col-sm-4">-->
+                        <!--<a th:href="@{/pasien/ubah/} + ${pasien.nik}">-->
+                            <!--<button type="button" class="btn btn-sm btn-secondary">Ubah</button>-->
+                        <!--</a>-->
+                    <!--</div>-->
 
-            <!--<div class="col-sm-2" >-->
-                <!--<a th:href="@{/pasien/ubah/} + ${pasien.nik}">-->
-                    <!--<button type="button" class="btn btn-secondary">Ubah</button>-->
-                <!--</a>-->
-            <!--</div>-->
-
-            <div class="col-sm-2" >
-                <a th:href="@{/diagnosis-penyakit/hapus/} + ${diagnosis.idDiagnosis}">
-                    <button type="button" class="btn btn-secondary">Hapus</button>
-                </a>
-            </div>
-        <!--</tr>-->
+                    <div class="col-sm-4">
+                        <a th:href="@{/diagnosis-penyakit/hapus/} + ${diagnosis.idDiagnosis}">
+                            <button type="button" class="btn btn-sm btn-danger">Hapus</button>
+                        </a>
+                    </div>
+                </div>
+            </td>
         </tbody>
     </table>
 </div>

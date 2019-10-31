@@ -9,12 +9,15 @@
 
 <body>
 <nav th:replace="fragments/fragment :: navbar (pageTitle='Beranda')"></nav>
+<br>
 <h2 style="text-align:center">Sistem Informasi Pasien</h2>
 <button class ="btn btn-primary">
     <a th:href="@{pasien/tambah}" style="color: white">Tambah Pasien Baru</a>
 </button>
-<div style="background-color: #343a40; color:white">
-    <p >Daftar Pasien</p>
+
+<br>
+<div class="card-header bg bg-dark">
+    <p style="color: white; size: 12px;">Daftar Pasien</p>
 </div>
 
 
@@ -45,7 +48,7 @@
             <td th:text="${pasien.tanggalLahir}"></td>
             <td th:text="${pasien.getNoHpContact(listContact)}"></td>
             <td style="white-space: nowrap;">
-                <div class="row">
+                <div class="row" style="width:100%">
                     <div class="col-sm-4">
                         <form th:action="@{/pasien/} + ${pasien.nik} + @{/tambah-diagnosis}" method ="GET">
                             <button  class="btn btn-sm btn-secondary" th:name="nik" th:value="${pasien.nik}">Tambah Diagnosis</button>
