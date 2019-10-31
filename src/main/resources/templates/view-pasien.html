@@ -14,7 +14,7 @@
     <h3 th:text="'Nama Pasien ' + ${pasien.nama}"></h3>
     <h3 th:text="'NIK ' + ${pasien.nik}"></h3>
     <h3 th:text="'Kode ' + ${pasien.uniqueCode}"></h3>
-    <h3 th:text="'Jenis Kelamin ' + ${pasien.jenisKelamin}"></h3>
+    <h3 th:text="'Jenis Kelamin ' + ${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></h3>
     <h3 th:text="'Tanggal Lahir ' + ${pasien.tanggalLahir}"></h3>
     <h3 th:text="'Tempat Lahir ' + ${pasien.tempatLahir}"></h3>
     <h3 th:text="'Emergency Contact ' + ${emergencyContact.nama} + ' - ' + ${emergencyContact.nik} + ' - ' + ${emergencyContact.noHp}"></h3>
@@ -26,8 +26,8 @@
     <!--</div>-->
     <tr th:object="${asuransi}" th:each="asuransi, iterationStatus : *{listAsuransi }">
         <td th:text="${iterationStatus.count}"></td>
-        <br>
         <td th:text="${asuransi.nama}" th:value="${asuransi.nama}" ></td>
+        <br>
     </tr>
 
 </div>

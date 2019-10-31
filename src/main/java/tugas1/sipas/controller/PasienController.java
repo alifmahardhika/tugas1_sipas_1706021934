@@ -115,7 +115,6 @@ public class PasienController {
 //        model.addAttribute("pasienList", allPasien);
 
             if (listAsuransiPasien.size() == 0){
-                System.out.println("=================================1");
                 pasienService.removePasien(idPasienBeneran);
                 return "pasien-dihapus";
             }
@@ -127,13 +126,9 @@ public class PasienController {
                     for (PasienAsuransiModel relasi:listAsuransiPasien){
                         String idPasienDiRelasi = "" + relasi.getIdPasien();
                         if (idPasienDiRelasi.equalsIgnoreCase(Long.toString(idPasienLong))){
-                            System.out.println("=================================2 " + relasi.getIdPasien());
                             pasienService.removeRelasi(Long.valueOf(relasi.getIdRelasi()));
                         }
-                        System.out.println("=================================2a " + relasi.getIdPasien());
-
                     }
-                    System.out.println("=================================3");
                 }
                 pasienService.removePasien(idPasienBeneran);
                 return "pasien-dihapus";
@@ -165,12 +160,10 @@ public class PasienController {
         String[] listAsuransiPasienSplit = targetPasien.getIdAsuransi().split(",");
 
         //ambil id asuransi dari relasi
-        for (int i = 0; i<listAsuransiPasienSplit.length; i++){
-            for (PasienAsuransiModel relasi:listAsuransiPasien){
-                String idPasienDiRelasi = "" + relasi.getIdPasien();
-                if (idPasienDiRelasi.equalsIgnoreCase(Long.toString(targetPasien.getIdPasien()))){
-                    daftarIdAsuransiPasien.add(Long.valueOf("" + (relasi.getIdAsuransi())));
-                }
+        for (PasienAsuransiModel relasi:listAsuransiPasien){
+            String idPasienDiRelasi = "" + relasi.getIdPasien();
+            if (idPasienDiRelasi.equalsIgnoreCase(Long.toString(targetPasien.getIdPasien()))){
+                daftarIdAsuransiPasien.add(Long.valueOf("" + (relasi.getIdAsuransi())));
             }
         }
         //isi list asuransi pasien
