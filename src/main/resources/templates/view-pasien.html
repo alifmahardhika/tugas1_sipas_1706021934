@@ -49,12 +49,9 @@
     <div class="container" align="center" style="padding-top: 30px">
         <h3>Asuransi Milik Pasien</h3>
         <table class="table">
-            <tr>
-                <th scope="col">Supplier</th>
-                <td th:each="asuransi, iterationStatus : *{listAsuransi }">
-                    <p th:text="${iterationStatus.count}"></p>
-                    <p th:text="${asuransi.nama}" th:value="${asuransi.nama}" ></p>
-                </td>
+            <tr th:each="asuransi, iterationStatus : *{listAsuransi }">
+                <th scope="col" th:text="${iterationStatus.count}"></th>
+                <td th:text="${asuransi.nama}" th:value="${asuransi.nama}"></td>
             </tr>
         </table>
     </div>
