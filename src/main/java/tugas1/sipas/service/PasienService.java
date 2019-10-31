@@ -21,13 +21,13 @@ public interface PasienService {
 
     PasienModel changePasien(PasienModel pasienModel);
 
-    void deletePasien(PasienModel pasienModel);
-
     void removePasien(Long idPasien);
-
-    Boolean findPasien(String idPasien);
 
     void addEmergencyContact(EmergencyContactModel contact);
 
     void addAsuransiRelation(PasienAsuransiModel relasi);
+
+    List<PasienAsuransiModel> findAsuransiPasien();
+
+    void removeRelasi(Long idRelasi);
 }

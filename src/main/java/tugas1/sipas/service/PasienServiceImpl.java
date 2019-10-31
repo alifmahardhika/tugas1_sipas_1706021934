@@ -40,21 +40,19 @@ public class PasienServiceImpl implements PasienService {
     @Override
     public List<PasienModel> getPasienList() {
         List<PasienModel> list = pasienDB.findAll();
-        list.sort((o1, o2) -> o1.getNama().compareTo(o2.getNama()));
         return list;
-
     }
-
-    @Override
-    public void deletePasien(PasienModel pasien) {
-
-
-    }
-
-    @Override
-    public Boolean findPasien(String idPasien) {
-        return null;
-    }
+//
+//    @Override
+//    public void deletePasien(PasienModel pasien) {
+//
+//
+//    }
+//
+//    @Override
+//    public Boolean findPasien(String idPasien) {
+//        return null;
+//    }
 
     @Override
     public Optional<PasienModel> getPasienByIdPasien(Long idPasien){
@@ -78,6 +76,18 @@ public class PasienServiceImpl implements PasienService {
         return null;
 
     }
+
+    @Override
+    public List<PasienAsuransiModel> findAsuransiPasien(){
+        List<PasienAsuransiModel> list = pasienAsuransiDB.findAll();
+        return list;
+    }
+
+    @Override
+    public void removeRelasi(Long idRelasi) {
+        pasienAsuransiDB.deleteById(idRelasi);
+    }
+
 
 
 }

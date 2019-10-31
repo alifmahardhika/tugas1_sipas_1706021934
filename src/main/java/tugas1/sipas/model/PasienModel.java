@@ -5,6 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
+import tugas1.sipas.model.EmergencyContactModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,7 +22,7 @@ public class PasienModel implements Serializable {
     //ATTRIBUTES
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idPasien;
+    private Long idPasien;
 
     @NotNull
     @Size(max =255)
@@ -70,10 +71,10 @@ public class PasienModel implements Serializable {
 
 
     //SETTER & GETTER
-    public Integer getIdPasien() {
+    public Long getIdPasien() {
         return idPasien;
     }
-    public void setIdPasien(Integer idPasien) {
+    public void setIdPasien(Long idPasien) {
         this.idPasien = idPasien;
     }
     public String getNama() {
@@ -133,5 +134,26 @@ public class PasienModel implements Serializable {
 
     public void setIdAsuransi(String idAsuransi) {
         this.idAsuransi = idAsuransi;
+    }
+
+    //METHOD LAINNYA
+    public String getNoHpContact(List<EmergencyContactModel> listContact){
+        String result = "";
+        for (EmergencyContactModel contact : listContact){
+            if (idEmergencyContact.equalsIgnoreCase(Long.toString(contact.getIdContact()))){
+                result += contact.getNoHp();
+            }
+        }
+        return result;
+    }
+
+    public EmergencyContactModel getEmergencyContact(List<EmergencyContactModel> listContact){
+        EmergencyContactModel contact = null;
+        for (EmergencyContactModel contact2 : listContact){
+            if (idEmergencyContact.equalsIgnoreCase(Long.toString(contact.getIdContact()))){
+                contact = contact2;
+            }
+        }
+        return contact;
     }
 }

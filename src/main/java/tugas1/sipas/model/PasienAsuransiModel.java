@@ -20,7 +20,7 @@ public class PasienAsuransiModel implements Serializable {
     //ATTRIBUTES
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idRelasi;
+    private Long idRelasi;
 
     @NotNull
     @Column(name="idPasien", nullable = false)
@@ -32,11 +32,11 @@ public class PasienAsuransiModel implements Serializable {
 
     //SETTER &GETTER
 
-    public Integer getIdRelasi() {
+    public Long getIdRelasi() {
         return idRelasi;
     }
 
-    public void setIdRelasi(Integer idRelasi) {
+    public void setIdRelasi(Long idRelasi) {
         this.idRelasi = idRelasi;
     }
 
@@ -54,6 +54,9 @@ public class PasienAsuransiModel implements Serializable {
 
     public void setIdAsuransi(BigInteger idAsuransi) {
         this.idAsuransi = idAsuransi;
+    }
+
+    public PasienAsuransiModel() {
     }
 
     public PasienAsuransiModel(@NotNull BigInteger idPasien, @NotNull BigInteger idAsuransi) {

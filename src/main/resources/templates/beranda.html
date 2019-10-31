@@ -34,12 +34,17 @@
             <td th:text="${iterationStatus.count}"></td>
             <td th:text="${pasien.nama}" th:value="${pasien.nama}" ></td>
             <td th:text="${pasien.nik}"></td>
-            <td th:text="${pasien.Jenis Kelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></td>
-            <td th:text="${pasien.Kode Pasien}"></td>
-            <td th:text="${pasien.nik}"></td>
+            <td th:text="${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></td>
+            <td th:text="${pasien.uniqueCode}"></td>
             <td th:text="${pasien.tempatLahir}"></td>
             <td th:text="${pasien.tanggalLahir}"></td>
-            <td th:text="${pasien.getEmergencyContact().getNoHp()}"></td>
+            <td th:text="${pasien.getNoHpContact(listContact)}"></td>
+
+            <div class="col-sm-2" >
+                <a th:href="@{/pasien/hapus/} + ${pasien.idPasien}">
+                    <button type="button" class="btn btn-secondary">hapus</button>
+                </a>
+            </div>
         </tr>
         </tbody>
     </table>
