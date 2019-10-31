@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeLeaf.org">
 
-<!--<head>-->
-    <!--<title>View All Pasien</title>-->
-    <!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
-    <!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
-<!--</head>-->
+<head>
+    <title>View All Pasien</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
 
 <body>
-<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='View All')"></nav>-->
+<nav th:replace="fragments/fragment :: navbar (pageTitle='Beranda')"></nav>
 <h2 style="text-align:center">Sistem Informasi Pasien</h2>
 <button class ="btn btn-primary">
     <a th:href="@{pasien/tambah}" style="color: white">Tambah Pasien Baru</a>
 </button>
-<h2>Daftar Pasien</h2>
+<div style="background-color: #343a40; color:white">
+    <p >Daftar Pasien</p>
+</div>
+
 
 <div class="container-fluid" align="center">
     <table class="table">
@@ -27,6 +30,8 @@
             <th scope="col">Tempat Lahir</th>
             <th scope="col">Tanggal Lahir</th>
             <th scope="col">Telepon Emergency Contact</th>
+            <th scope="col"></th>
+
         </tr>
         </thead>
         <tbody>
@@ -39,36 +44,33 @@
             <td th:text="${pasien.tempatLahir}"></td>
             <td th:text="${pasien.tanggalLahir}"></td>
             <td th:text="${pasien.getNoHpContact(listContact)}"></td>
+            <td style="white-space: nowrap;">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <form th:action="@{/pasien/} + ${pasien.nik} + @{/tambah-diagnosis}" method ="GET">
+                            <button  class="btn btn-sm btn-secondary" th:name="nik" th:value="${pasien.nik}">Tambah Diagnosis</button>
+                        </form>
+                    </div>
 
+                    <div class="col-sm-2">
+                        <form th:action="@{/pasien}" method ="GET">
+                            <button  class="btn btn-sm btn-primary" th:name="nik" th:value="${pasien.nik}">Lihat</button>
+                        </form>
+                    </div>
 
-            <!--<form th:action="@{/restoran/view}" method="GET">-->
-                <!--<label for="idRestoran">Id Restoran</label>-->
-                <!--<input type="text" name="idRestoran" class="form-control"/>-->
-                <!--<br>-->
-                <!--<button class="btn btn-primary" type="submit"> Cari </button>-->
-            <!--</form>-->
+                    <div class="col-sm-2">
+                        <a th:href="@{/pasien/ubah/} + ${pasien.nik}">
+                            <button type="button" class="btn btn-sm btn-secondary">Ubah</button>
+                        </a>
+                    </div>
 
-            <!--<div class="col-sm-2" >-->
-                <!--<a th:href="@{/pasien}" method="GET">-->
-                    <!--<button type="button" class="btn btn-secondary" th:value="pasien.nik" th:name="pasien.nik" for="nik">Lihat</button>-->
-                <!--</a>-->
-            <!--</div>-->
-
-            <form th:action="@{/pasien}" method ="GET">
-                <button  th:name="nik" th:value="${pasien.nik}">Lihat</button>
-            </form>
-
-            <div class="col-sm-2" >
-                <a th:href="@{/pasien/ubah/} + ${pasien.nik}">
-                    <button type="button" class="btn btn-secondary">Ubah</button>
-                </a>
-            </div>
-
-            <div class="col-sm-2" >
-                <a th:href="@{/pasien/hapus/} + ${pasien.idPasien}">
-                    <button type="button" class="btn btn-secondary">Hapus</button>
-                </a>
-            </div>
+                    <div class="col-sm-2">
+                        <a th:href="@{/pasien/hapus/} + ${pasien.idPasien}">
+                            <button type="button" class="btn btn-sm btn-danger">Hapus</button>
+                        </a>
+                    </div>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
