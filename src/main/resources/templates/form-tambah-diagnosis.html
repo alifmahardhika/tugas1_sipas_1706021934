@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymelaf.org">
-<!--<head>-->
-<!--<meta charset="UTF-8">-->
-<!--<title>Tambah Pasien</title>-->
-<!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
-<!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
-<!--</head>-->
+<head>
+<meta charset="UTF-8">
+<title>Tambah Diagnosis</title>
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
 <body>
-<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='Add Pasien')"></nav>-->
+<nav th:replace="fragments/fragment :: navbar (pageTitle='Tambah Diagnosis')"></nav>
 
 <h3>Tambah Diagnosis</h3>
-<form th:action="@{/diagnosis-penyakit/tambah}" th:object="${newDiagnosis}" method="POST">
-    Nama: <br>
-    <input type="text" name="namaDiagnosis" />
+<div class="container-fluid">
+    <h3 th:text="'Sistem Informasi Pasien'"  align="center" style="padding-top: 30px"></h3>
     <br>
-    Kode: <br>
-    <input type="text" name="kode" />
-    <br>
+    <h3 style="background-color: #343a40; color: white">Tambah Pasien</h3>
+    <form th:action="@{/diagnosis-penyakit/tambah}" th:object="${newDiagnosis}" method="POST" style="margin-left: 20px">
+        <table >
+            <tr>
+                <th scope="col">Nama</th>
+                <td>
+                    <input class="form-control" type="text" name="namaDiagnosis" style="width: 400px; height: 50px;" th:field="${newDiagnosis.namaDiagnosis}"/>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Kode</th>
+                <td>
+                    <input class="form-control" type="text" name="kode" style="width: 400px; height: 50px;" th:field="${newDiagnosis.kode}"/>
+                </td>
+            </tr>
+        </table>
 
-    <br>
-    <button class="btn btn-primary" type="submit">Submit</button>
-</form>
+        <!--<button type="submit" class="btn btn-primary" name="addRow">Add Row</button>-->
+        <button type="submit" class="btn btn-primary" name="save"> Submit </button>
 
+        <br>
+        <br>
+
+
+
+    </form>
+</div>
 </body>
 </html>

@@ -2,71 +2,115 @@
 <html xmlns:th="http://www.thymelaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--<title>Tambah Pasien</title>-->
-    <!--<object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
-    <!--<object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+    <title>Tambah Pasien</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 <body>
-<!--<nav th:replace="fragments/fragment :: navbar (pageTitle='Add Pasien')"></nav>-->
-
-<h3>Tambah Pasien</h3>
-<form th:action="@{/pasien/tambah}" th:object="${pasien}" method="POST">
-    Nama: <br>
-    <input type="text" name="nama" />
-    <br>
-    NIK: <br>
-    <input type="text" name="nik" />
-    <br>
-    Jenis Kelamin: <br>
-    <select th:field="*{jenisKelamin}">
-        <option th:value="1" th:text="Laki-laki"></option>
-        <option th:value="2" th:text="Perempuan"></option>
-    </select>
-    <br>
-    Tanggal Lahir: <br>
-        <input type="date" th:value="${pasien.tanggalLahir}" th:field="${pasien.tanggalLahir}" id="tanggalLahir"/>
-    <br>
-    Tempat Lahir: <br>
-    <input type="text" name="tempatLahir" />
-    <br>
+<nav th:replace="fragments/fragment :: navbar (pageTitle='Add Pasien')"></nav>
 
 
-    <script>
-        $(document).ready(function(){
-            $('#buttonToAddDD').click(function(){
-                $("#dd1").append($("#dd2").clone());
-            });
-        });
-    </script>
-    Asuransi: <br>
-
-    <div id="dd1">
-        <div id="dd2">
-            <select th:field="*{idAsuransi}"  id="dropdownList" name="idAsuransi">
-                <option value="0">Pilih Asuransi</option>
-                <option th:each="asuransi : ${listAsuransi}" th:value="${asuransi.idAsuransi}" th:text="${asuransi.nama}"></option>
-            </select>
-
-        </div>
-        <input type="button" id="buttonToAddDD" value="Tambah Asuransi" />
-    </div>
-
+<div class="container-fluid">
+    <h3 th:text="'Sistem Informasi Pasien'"  align="center" style="padding-top: 30px"></h3>
     <br>
-    Emergency Contact Name: <br>
-    <input type="text" name="idEmergencyContact" />
-    <br>
-    Emergency Contact NIK: <br>
-    <input type="text" name="idEmergencyContact" />
-    <br>
-    Emergency Contact Phone: <br>
-    <input type="number" name="idEmergencyContact" />
-    <br>
+    <h3 style="background-color: #343a40; color: white">Tambah Pasien</h3>
+    <form th:action="@{/pasien/tambah}" th:object="${pasien}" method="POST" style="margin-left: 20px">
+        <table >
+            <tr>
+                <th scope="col">Nama</th>
+                <td>
+                    <input class="form-control" type="text" name="nama" style="width: 400px; height: 50px;" th:field="${pasien.nama}"/>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">NIK</th>
+                <td>
+                    <input class="form-control" type="text" name="nik" style="width: 400px; height: 50px;" th:field="${pasien.nik}" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Jenis Kelamin</th>
+                <td>
+                    <select th:field="*{jenisKelamin}" class="form-control">
+                        <option th:value="1" th:text="Laki-laki"></option>
+                        <option th:value="2" th:text="Perempuan"></option>
+                    </select>
+            </tr>
+
+            <tr>
+                <th scope="col">Tanggal Lahir</th>
+                <td>
+                    <input class="form-control" type="date" name="tanggalLahir" style="width: 400px; height: 50px;" th:field="${pasien.tanggalLahir}" th:value="${pasien.tanggalLahir}" id="tanggalLahir"/>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Tempat Lahir</th>
+                <td>
+                    <input class="form-control" type="text" name="tempatLahir" style="width: 400px; height: 50px;" th:field="${pasien.tempatLahir}"/>
+                </td>
+            </tr>
+
+            <script>
+                $(document).ready(function(){
+                    $('#buttonToAddDD').click(function(){
+                    $("#dd1").append($("#dd2").clone());
+                    });
+                });
+            </script>
+
+            <tr id="dd">
+                <th scope="col">Asuransi</th>
+                <br>
+                <td id="dd1">
+                    <div id="dd2">
+                        <select class="form-control" th:field="*{idAsuransi}"  id="dropdownList" name="idAsuransi" style="width:100%">
+                            <option value="0">Pilih Asuransi</option>
+                            <option th:each="asuransi : ${listAsuransi}" th:value="${asuransi.idAsuransi}" th:text="${asuransi.nama}"></option>
+                        </select>
+                    </div>
+                </td>
+                <br>
+            </tr>
+
+            <tr>
+                <th scope="col"></th>
+                <td>
+                    <input class="btn btn-primary" type="button" id="buttonToAddDD" value="Tambah Asuransi" />
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="col">Emergency Contact Name</th>
+                <td>
+                    <input class="form-control" type="text" name="idEmergencyContact" style="width: 400px; height: 50px;"/>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Emergency Contact NIK</th>
+                <td>
+                    <input class="form-control" type="text" name="idEmergencyContact" style="width: 400px; height: 50px;"/>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Emergency Contact Phone Number</th>
+                <td>
+                    <input class="form-control" type="number" name="idEmergencyContact" style="width: 400px; height: 50px;"/>
+                </td>
+            </tr>
+
+        </table>
+
+        <!--<button type="submit" class="btn btn-primary" name="addRow">Add Row</button>-->
+        <button type="submit" class="btn btn-primary" name="save"> Submit </button>
+
+        <br>
+        <br>
 
 
-    <button class="btn btn-primary" type="submit">Submit</button>
-</form>
 
+    </form>
+</div>
 </body>
 </html>
